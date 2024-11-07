@@ -129,8 +129,13 @@ document.getElementById("sendCoinsButton").onclick = function() {
 
     // تحقق من المدخلات
     if (recipientAddress && amount && amount > 0 && amount <= parseInt(localStorage.getItem("balance") || 0)) {
+        // استرجاع رصيد المرسل إليه (إن وجد) أو تعيين رصيد جديد إذا كانت المحفظة جديدة
+        let recipientBalance = localStorage.getItem("recipientBalance-" + recipientAddress);
+        if (!recipientBalance) {
+            recipientBalance = 0; // إذا كانت المحفظة جديدة، تعيين رصيدها إلى 0
+        }
+        
         // إضافة العملات إلى محفظة المرسل إليه
-        const recipientBalance = localStorage.getItem("recipientBalance-" + recipientAddress) || 0;
         localStorage.setItem("recipientBalance-" + recipientAddress, parseInt(recipientBalance) + amount);
 
         // خصم العملات من رصيد المرسل
