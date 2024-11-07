@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqsaCoin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <section class="main-content">
+        <h1>Welcome to AqsaCoin</h1>
+        <p>Your cryptocurrency mining site</p>
+
+        <div class="auth-buttons">
+            <button id="registerButton">Register</button>
+            <button id="loginButton">Login</button>
+        </div>
+
+        <!-- Wallet Section -->
+        <div class="wallet-section" style="display: none;">
+            <h2>Your Wallet</h2>
+            <p id="walletAddress">Wallet Address: N/A</p>
+            <p id="walletBalance">Balance: 0 AQSA</p>
+            <button id="startMiningButton">Start Mining</button>
+            <p id="miningTimer">Next mining cycle in: 24:00:00</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
