@@ -1,3 +1,13 @@
+// توليد 12 كلمة استرداد عشوائية
+function generateRecoveryWords() {
+    const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
+    let recoveryPhrase = [];
+    for (let i = 0; i < 12; i++) {
+        recoveryPhrase.push(words[Math.floor(Math.random() * words.length)]);
+    }
+    return recoveryPhrase.join(" ");
+}
+
 // زر التسجيل
 document.getElementById("registerButton").onclick = function() {
     const email = prompt("Enter your email:");
@@ -12,8 +22,8 @@ document.getElementById("registerButton").onclick = function() {
             localStorage.setItem("password", password);
 
             // إنشاء عنوان محفظة وكلمات الاسترداد
-            const walletAddress = "AZKAR-" + Math.floor(Math.random() * 1000000);
-            const recoveryWords = "word1 word2 word3 ... word12";
+            const walletAddress = "AQSA-" + Math.floor(Math.random() * 1000000);
+            const recoveryWords = generateRecoveryWords();
             localStorage.setItem("walletAddress", walletAddress);
             localStorage.setItem("recoveryWords", recoveryWords);
 
@@ -55,7 +65,7 @@ function showWallet() {
 
 // تحديث الرصيد
 function updateBalance() {
-    document.getElementById("balance").textContent = "Balance: " + (localStorage.getItem("balance") || 0) + " coins";
+    document.getElementById("balance").textContent = "Balance: " + (localStorage.getItem("balance") || 0) + " AqsaCoins";
 }
 
 // بدء دورة التعدين مع مؤقت 24 ساعة
@@ -64,7 +74,7 @@ document.getElementById("mineButton").onclick = function() {
     const now = Date.now();
 
     if (!lastMiningTime || now - lastMiningTime >= 24 * 60 * 60 * 1000) {
-        alert("Mining started! You have mined 3 coins.");
+        alert("Mining started! You have mined 3 AqsaCoins.");
         localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) + 3).toString());
         localStorage.setItem("lastMiningTime", now);
         updateBalance();
@@ -81,6 +91,13 @@ function formatTime(ms) {
     const seconds = Math.floor((ms % (60 * 1000)) / 1000);
     return `${hours}h ${minutes}m ${seconds}s`;
 }
+
+// زر تسجيل الخروج
+document.getElementById("logoutButton").onclick = function() {
+    sessionStorage.removeItem("loggedIn");
+    document.querySelector(".wallet-section").style.display = "none";
+    document.querySelector(".auth-section").style.display = "block";
+};
 
 // التأكد من تسجيل الدخول عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
