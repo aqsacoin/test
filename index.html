@@ -3,50 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqsaCoin</title>
+    <title>AqsaCoin Wallet</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Main content -->
-    <section class="main-content">
+    <div class="container">
         <h1>Welcome to AqsaCoin</h1>
-        <p>Your cryptocurrency mining site</p>
-
-        <div class="buttons">
+        <div class="auth-section">
             <button id="registerButton">Register</button>
             <button id="loginButton">Login</button>
-            <button id="walletButton">My Wallet</button>
         </div>
 
-        <!-- Wallet Section -->
-        <div id="walletSection" style="display:none;">
-            <h3>Wallet Details</h3>
-            <p id="walletAddress">Wallet Address: </p>
-            <button id="showRecoveryButton">Show Recovery Words</button>
-            <div id="recoveryWords" style="display:none;">
-                <p id="recoveryWordsList"></p>
-            </div>
+        <div class="wallet-section" style="display: none;">
+            <p id="balance">Balance: 0 AqsaCoins</p>
+            <button id="walletButton">Show Wallet Address</button>
+            <button id="mineButton">Start Mining</button>
+            <p id="walletAddress" style="display: none;">Wallet Address: <span id="walletAddressDisplay"></span></p>
+            <button id="recoveryToggleButton">Show Recovery Words</button>
+            <p id="recoveryWords" style="display: none;">Recovery Words: <span id="recoveryWordsDisplay"></span></p>
+            <p id="miningTimer"></p>
+            <button id="logoutButton">Logout</button>
         </div>
-
-        <!-- Mining Section -->
-        <div id="miningSection" style="display:none;">
-            <h3>Mining</h3>
-            <p>Coins: <span id="coinCount">0</span></p>
-            <p id="timer">Time Left: <span id="countdown"></span></p>
-            <button id="startMiningButton">Start Mining</button>
-        </div>
-    </section>
+    </div>
 
     <script src="script.js"></script>
 </body>
