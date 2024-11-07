@@ -1,50 +1,53 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQSA Coin</title>
+    <title>AqsaCoin</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/bip39@3.0.2/dist/bip39.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- واجهة المحفظة -->
-        <div class="wallet-section">
-            <h2>محفظتك</h2>
-            <button id="generateWalletButton">إنشاء محفظة جديدة</button>
-            <p id="walletAddress">عنوان المحفظة سيظهر هنا</p>
-            <button id="showMnemonicButton">إظهار كلمات الاسترداد</button>
-            <p id="mnemonic">هذه هي كلمات الاسترداد الخاصة بك: </p>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <section class="main-content">
+        <h1>Welcome to AqsaCoin</h1>
+        <p>Your cryptocurrency mining site</p>
+
+        <div class="buttons">
+            <button id="registerButton">Register</button>
+            <button id="loginButton">Login</button>
+            <button id="walletButton">My Wallet</button>
         </div>
 
-        <!-- تسجيل الدخول -->
-        <div class="auth-section">
-            <h2>تسجيل الدخول</h2>
-            <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
-            <input type="password" id="loginPassword" placeholder="كلمة السر">
-            <button id="loginButton">تسجيل الدخول</button>
+        <!-- Wallet Section -->
+        <div id="walletSection" style="display:none;">
+            <h3>Wallet Details</h3>
+            <p id="walletAddress">Wallet Address: </p>
+            <button id="showRecoveryButton">Show Recovery Words</button>
+            <div id="recoveryWords" style="display:none;">
+                <p id="recoveryWordsList"></p>
+            </div>
         </div>
 
-        <!-- صفحة التسجيل -->
-        <div class="signup-section">
-            <h2>التسجيل</h2>
-            <input type="email" id="signupEmail" placeholder="البريد الإلكتروني">
-            <input type="text" id="signupUsername" placeholder="اسم المستخدم">
-            <input type="password" id="signupPassword" placeholder="كلمة السر">
-            <input type="password" id="signupConfirmPassword" placeholder="تأكيد كلمة السر">
-            <button id="signupButton">تسجيل</button>
+        <!-- Mining Section -->
+        <div id="miningSection" style="display:none;">
+            <h3>Mining</h3>
+            <p>Coins: <span id="coinCount">0</span></p>
+            <p id="timer">Time Left: <span id="countdown"></span></p>
+            <button id="startMiningButton">Start Mining</button>
         </div>
+    </section>
 
-        <!-- التعدين -->
-        <div class="mining-section">
-            <h2>التعدين</h2>
-            <p id="miningStatus">لم يبدأ التعدين بعد.</p>
-            <button id="startMiningButton">ابدأ التعدين</button>
-        </div>
-
-    </div>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
