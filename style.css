@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background: linear-gradient(to right, #4a90e2, #e94e77);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,19 +9,37 @@ body {
     margin: 0;
 }
 
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    width: 300px;
+}
+
+h1 {
+    color: #f4f4f4;
+    margin-bottom: 20px;
+}
+
 .auth-section, .wallet-section {
     text-align: center;
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #ff5733;
     color: white;
     padding: 10px 20px;
     margin: 5px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #ff8d72;
+}
+
+p {
+    margin: 10px 0;
 }
