@@ -121,10 +121,18 @@ document.getElementById("walletButton").onclick = function() {
     walletAddress.style.display = walletAddress.style.display === "none" ? "block" : "none";
 };
 
-// إظهار/إخفاء كلمات الاسترداد
-document.getElementById("recoveryToggleButton").onclick = function() {
-    const recoveryWords = document.getElementById("recoveryWords");
-    recoveryWords.style.display = recoveryWords.style.display === "none" ? "block" : "none";
+// زر إرسال العملات
+document.getElementById("sendCoinsButton").onclick = function() {
+    const recipientAddress = prompt("Enter the recipient's wallet address:");
+    const amount = parseInt(prompt("Enter the amount of AqsaCoins to send:"));
+
+    if (recipientAddress && amount && amount > 0 && amount <= parseInt(localStorage.getItem("balance") || 0)) {
+        localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) - amount).toString());
+        alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}.`);
+        updateBalance();
+    } else {
+        alert("Invalid address or insufficient balance.");
+    }
 };
 
 // زر تسجيل الخروج
