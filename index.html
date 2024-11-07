@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqsaCoin Wallet</title>
+    <title>AZKARCOIN Wallet</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- العنوان الرئيسي -->
-    <header>
-        <h1>مرحبا بك في AqsaCoin</h1>
-        <p>موقع تعدين العملات الرقمية</p>
-    </header>
-
-    <!-- أزرار التنقل -->
-    <div class="auth-buttons">
-        <button id="registerButton">التسجيل</button>
-        <button id="loginButton">تسجيل الدخول</button>
+    <div class="auth-section">
+        <button id="registerButton">Register</button>
+        <button id="loginButton">Login</button>
     </div>
 
-    <!-- قسم المحفظة والتعدين -->
-    <section class="wallet-section">
-        <h2>محفظتك</h2>
-        <p>رصيد العملات: <span id="balance">0</span> AqsaCoin</p>
-        <button id="mineButton">بدء التعدين</button>
-        <p>الوقت المتبقي للتعدين: <span id="timer">24:00:00</span></p>
-    </section>
+    <div class="wallet-section" style="display: none;">
+        <p id="balance">Balance: 0 coins</p>
+        <button id="mineButton">Start Mining</button>
+        <p id="walletAddress">Wallet Address: <span id="walletAddressDisplay"></span></p>
+        <p id="recoveryWords">Recovery Words: <span id="recoveryWordsDisplay"></span></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
