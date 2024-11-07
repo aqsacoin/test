@@ -1,0 +1,62 @@
+/* Reset and basic styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1a73e8;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-content {
+    text-align: center;
+    padding: 40px;
+}
+
+.auth-buttons button, .wallet-section button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth-buttons button:hover, .wallet-section button:hover {
+    background-color: #1358a6;
+}
+
+.wallet-section {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+}
+
+#miningTimer {
+    font-weight: bold;
+    color: #e53935;
+}
