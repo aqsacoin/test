@@ -39,8 +39,10 @@ document.getElementById("registerButton").onclick = function() {
     if (username) {
         const { walletAddress, recoveryWords } = generateWallet();
         saveUserData(username, walletAddress, recoveryWords);
-        alert("Registration successful! Your recovery words are: " + recoveryWords.join(" "));
+        alert(`Registration successful! \nWallet Address: ${walletAddress}\nRecovery Words: ${recoveryWords.join(" ")}`);
         setupWalletPage();
+    } else {
+        alert("Registration failed. Please enter a valid username.");
     }
 };
 
