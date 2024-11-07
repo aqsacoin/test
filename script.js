@@ -1,71 +1,101 @@
-// وظيفة إنشاء المحفظة وتوليد كلمات الاسترداد
+let isMining = false;
+let miningTimer;
+let coins = 0;
+let recoveryWords = [];
+
+document.getElementById("registerButton").addEventListener("click", function() {
+    alert("Registration is not implemented yet");
+});
+
+document.getElementById("loginButton").addEventListener("click", function() {
+    alert("Login is not implemented yet");
+});
+
+document.getElementById("walletButton").addEventListener("click", function() {
+    generateWallet();
+});
+
+document.getElementById("startMiningButton").addEventListener("click", function() {
+    startMining();
+});
+
+document.getElementById("showRecoveryButton").addEventListener("click", function() {
+    document.getElementById("recoveryWords").style.display = "block";
+    document.getElementById("recoveryWordsList").textContent = recoveryWords.join(", ");
+});
+
+// Generate Wallet
 function generateWallet() {
-    const mnemonic = bip39.generateMnemonic();  // توليد كلمات الاسترداد
-    const walletAddress = generateWalletAddress();  // توليد عنوان المحفظة الفريد
-    document.getElementById('walletAddress').textContent = walletAddress;  // عرض عنوان المحفظة
-    document.getElementById('mnemonic').textContent = mnemonic;  // عرض كلمات الاسترداد
-    document.getElementById('mnemonic').style.display = 'none';  // إخفاء كلمات الاسترداد بشكل افتراضي
+    // Generate random 12 recovery words
+    recoveryWords = generateRecoveryWords();
+    const walletAddress = generateWalletAddress();
+
+    // Display wallet address
+    document.getElementById("walletAddress").textContent = "Wallet Address: " + walletAddress;
+
+    // Display wallet section
+    document.getElementById("walletSection").style.display = "block";
 }
 
-// توليد عنوان محفظة فريد
+// Generate 12 random recovery words (example words)
+function generateRecoveryWords() {
+    const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
+    let selectedWords = [];
+    for (let i = 0; i < 12; i++) {
+        selectedWords.push(words[Math.floor(Math.random() * words.length)]);
+    }
+    return selectedWords;
+}
+
+// Generate random wallet address (dummy address for now)
 function generateWalletAddress() {
-    return 'AQSA-' + Math.random().toString(36).substring(2, 15);  // يولد عنوان عشوائي للمحفظة
+    const address = "AQSA-" + Math.random().toString(36).substring(2, 15);
+    return address;
 }
 
-// إظهار كلمات الاسترداد
-function showMnemonic() {
-    document.getElementById('mnemonic').style.display = 'block';  // إظهار كلمات الاسترداد
+// Start Mining
+function startMining() {
+    if (!isMining) {
+        isMining = true;
+        document.getElementById("startMiningButton").textContent = "Stop Mining";
+        startMiningTimer();
+    } else {
+        isMining = false;
+        document.getElementById("startMiningButton").textContent = "Start Mining";
+        stopMiningTimer();
+    }
 }
 
-// إضافة أحداث للأزرار
-document.getElementById('generateWalletButton').addEventListener('click', generateWallet);
-document.getElementById('showMnemonicButton').addEventListener('click', showMnemonic);
+// Start mining timer (24 hours)
+function startMiningTimer() {
+    const countdownElement = document.getElementById("countdown");
 
-// تسجيل الدخول
-document.getElementById('loginButton').addEventListener('click', function() {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    if (email && password) {
-        alert('تم تسجيل الدخول بنجاح');
-        // هنا يمكن إضافة الكود الفعلي لتسجيل الدخول
-    } else {
-        alert('يرجى إدخال البريد الإلكتروني وكلمة السر');
-    }
-});
-
-// التسجيل
-document.getElementById('signupButton').addEventListener('click', function() {
-    const email = document.getElementById('signupEmail').value;
-    const username = document.getElementById('signupUsername').value;
-    const password = document.getElementById('signupPassword').value;
-    const confirmPassword = document.getElementById('signupConfirmPassword').value;
-    
-    if (email && username && password && confirmPassword) {
-        if (password === confirmPassword) {
-            alert('تم التسجيل بنجاح');
-            // هنا يمكن إضافة الكود الفعلي لتسجيل المستخدم في قاعدة البيانات
-        } else {
-            alert('كلمة السر غير متطابقة');
-        }
-    } else {
-        alert('يرجى تعبئة جميع الحقول');
-    }
-});
-
-// التعدين
-let miningInterval;
-document.getElementById('startMiningButton').addEventListener('click', function() {
-    document.getElementById('miningStatus').textContent = 'بدأ التعدين...';
-    let timeLeft = 24 * 60 * 60;  // 24 ساعة بالثواني
-    miningInterval = setInterval(function() {
-        timeLeft--;
-        const hours = Math.floor(timeLeft / 3600);
-        const minutes = Math.floor((timeLeft % 3600) / 60);
-        const seconds = timeLeft % 60;
-        document.getElementById('miningStatus').textContent = `التعدين مستمر: ${hours}:${minutes}:${seconds}`;
+    let timeLeft = 24 * 60 * 60; // 24 hours in seconds
+    miningTimer = setInterval(function() {
         if (timeLeft <= 0) {
-            clearInterval(miningInterval);
-            document.getElementById('miningStatus').textContent = 'تم التعدين بنجاح!';
+            clearInterval(miningTimer);
+            alert("Mining cycle complete!");
+            coins += 3; // Adding 3 coins after each mining cycle
+            document.getElementById("coinCount").textContent = coins;
+            document.getElementById("countdown").textContent = "00:00:00";
+            return;
         }
+
+        let hours = Math.floor(timeLeft / 3600);
+        let minutes = Math.floor((timeLeft % 3600) / 60);
+        let seconds = timeLeft % 60;
+
+        countdownElement.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        timeLeft--;
     }, 1000);
-});
+}
+
+// Stop mining timer
+function stopMiningTimer() {
+    clearInterval(miningTimer);
+}
+
+// Pad numbers for timer format
+function pad(num) {
+    return num < 10 ? "0" + num : num;
+}
