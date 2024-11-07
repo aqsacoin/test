@@ -7,29 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- العنوان الرئيسي -->
     <header>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>مرحبا بك في AqsaCoin</h1>
+        <p>موقع تعدين العملات الرقمية</p>
     </header>
 
-    <!-- Authentication Buttons -->
-    <section class="auth-buttons">
-        <button id="registerButton">Register</button>
-        <button id="loginButton">Login</button>
-    </section>
+    <!-- أزرار التنقل -->
+    <div class="auth-buttons">
+        <button id="registerButton">التسجيل</button>
+        <button id="loginButton">تسجيل الدخول</button>
+    </div>
 
-    <!-- Wallet Section (Hidden by default) -->
-    <section class="wallet-section" style="display: none;">
-        <h2>Your Wallet</h2>
-        <p id="walletAddress">Wallet Address: [Your Address]</p>
-        <p id="miningTimer">Mining Timer: 24:00:00</p>
-        <button id="startMiningButton">Start Mining</button>
+    <!-- قسم المحفظة والتعدين -->
+    <section class="wallet-section">
+        <h2>محفظتك</h2>
+        <p>رصيد العملات: <span id="balance">0</span> AqsaCoin</p>
+        <button id="mineButton">بدء التعدين</button>
+        <p>الوقت المتبقي للتعدين: <span id="timer">24:00:00</span></p>
     </section>
 
     <script src="script.js"></script>
