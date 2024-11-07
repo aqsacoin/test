@@ -54,7 +54,7 @@ document.getElementById("loginButton").onclick = function() {
 
     if (username === localStorage.getItem("username") && password === localStorage.getItem("password")) {
         alert("Login successful!");
-        sessionStorage.setItem("loggedIn", true);
+        localStorage.setItem("loggedIn", true);  // تغيير من sessionStorage إلى localStorage
         showWallet();
     } else {
         alert("Incorrect username or password.");
@@ -126,7 +126,9 @@ document.getElementById("sendCoinsButton").onclick = function() {
     const recipientAddress = prompt("Enter the recipient's wallet address:");
     const amount = parseInt(prompt("Enter the amount of AqsaCoins to send:"));
 
+    // تحقق من المدخلات
     if (recipientAddress && amount && amount > 0 && amount <= parseInt(localStorage.getItem("balance") || 0)) {
+        // إرسال العملات
         localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) - amount).toString());
         alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}.`);
         updateBalance();
@@ -137,14 +139,14 @@ document.getElementById("sendCoinsButton").onclick = function() {
 
 // زر تسجيل الخروج
 document.getElementById("logoutButton").onclick = function() {
-    sessionStorage.removeItem("loggedIn");
+    localStorage.removeItem("loggedIn");  // تغيير من sessionStorage إلى localStorage
     document.querySelector(".wallet-section").style.display = "none";
     document.querySelector(".auth-section").style.display = "block";
 };
 
 // التأكد من تسجيل الدخول عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function() {
-    if (sessionStorage.getItem("loggedIn") === "true") {
+    if (localStorage.getItem("loggedIn") === "true") {  // تغيير من sessionStorage إلى localStorage
         showWallet();
     } else {
         document.querySelector(".wallet-section").style.display = "none";
