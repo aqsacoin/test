@@ -1,47 +1,63 @@
-/* CSS لتحسين التصميم و الألوان */
-
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #4a90e2, #e94e77);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f9;
     margin: 0;
+    padding: 0;
+    direction: rtl;
 }
 
 .container {
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 8px;
-    width: 300px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
 }
 
-h1 {
-    color: #f4f4f4;
-    margin-bottom: 20px;
-}
-
-.auth-section, .wallet-section {
+h2 {
     text-align: center;
+    color: #1e90ff;
 }
 
 button {
-    background-color: #ff5733;
-    color: white;
     padding: 10px 20px;
-    margin: 5px;
+    margin: 10px 0;
+    background-color: #1e90ff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
 }
 
 button:hover {
-    background-color: #ff8d72;
+    background-color: #4682b4;
 }
 
-p {
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
     margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.wallet-section, .auth-section, .signup-section, .mining-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#walletAddress {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#mnemonic {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    display: none;
 }
