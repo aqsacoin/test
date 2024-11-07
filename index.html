@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth-section">
-        <button id="registerButton">Register</button>
-        <button id="loginButton">Login</button>
-    </div>
+    <div class="container">
+        <h1>Welcome to AqsaCoin</h1>
+        <div class="auth-section">
+            <button id="registerButton">Register</button>
+            <button id="loginButton">Login</button>
+        </div>
 
-    <div class="wallet-section" style="display: none;">
-        <p id="balance">Balance: 0 AqsaCoins</p>
-        <button id="mineButton">Start Mining</button>
-        <p id="walletAddress">Wallet Address: <span id="walletAddressDisplay"></span></p>
-        <p id="recoveryWords">Recovery Words: <span id="recoveryWordsDisplay"></span></p>
-        <button id="logoutButton">Logout</button>
+        <div class="wallet-section" style="display: none;">
+            <p id="balance">Balance: 0 AqsaCoins</p>
+            <button id="walletButton">Wallet</button>
+            <button id="mineButton">Start Mining</button>
+            <p id="walletAddress">Wallet Address: <span id="walletAddressDisplay"></span></p>
+            <p id="recoveryWords">Recovery Words: <span id="recoveryWordsDisplay"></span></p>
+            <button id="logoutButton">Logout</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
