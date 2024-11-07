@@ -1,101 +1,145 @@
-let isMining = false;
-let miningTimer;
-let coins = 0;
-let recoveryWords = [];
-
-document.getElementById("registerButton").addEventListener("click", function() {
-    alert("Registration is not implemented yet");
-});
-
-document.getElementById("loginButton").addEventListener("click", function() {
-    alert("Login is not implemented yet");
-});
-
-document.getElementById("walletButton").addEventListener("click", function() {
-    generateWallet();
-});
-
-document.getElementById("startMiningButton").addEventListener("click", function() {
-    startMining();
-});
-
-document.getElementById("showRecoveryButton").addEventListener("click", function() {
-    document.getElementById("recoveryWords").style.display = "block";
-    document.getElementById("recoveryWordsList").textContent = recoveryWords.join(", ");
-});
-
-// Generate Wallet
-function generateWallet() {
-    // Generate random 12 recovery words
-    recoveryWords = generateRecoveryWords();
-    const walletAddress = generateWalletAddress();
-
-    // Display wallet address
-    document.getElementById("walletAddress").textContent = "Wallet Address: " + walletAddress;
-
-    // Display wallet section
-    document.getElementById("walletSection").style.display = "block";
-}
-
-// Generate 12 random recovery words (example words)
+// توليد 12 كلمة استرداد عشوائية
 function generateRecoveryWords() {
-    const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", "mango", "nectarine"];
-    let selectedWords = [];
+    const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
+    let recoveryPhrase = [];
     for (let i = 0; i < 12; i++) {
-        selectedWords.push(words[Math.floor(Math.random() * words.length)]);
+        recoveryPhrase.push(words[Math.floor(Math.random() * words.length)]);
     }
-    return selectedWords;
+    return recoveryPhrase.join(" ");
 }
 
-// Generate random wallet address (dummy address for now)
+// توليد عنوان محفظة طويل
 function generateWalletAddress() {
-    const address = "AQSA-" + Math.random().toString(36).substring(2, 15);
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let address = "AQSA-";
+    for (let i = 0; i < 16; i++) {
+        address += chars[Math.floor(Math.random() * chars.length)];
+    }
     return address;
 }
 
-// Start Mining
-function startMining() {
-    if (!isMining) {
-        isMining = true;
-        document.getElementById("startMiningButton").textContent = "Stop Mining";
-        startMiningTimer();
+// زر التسجيل
+document.getElementById("registerButton").onclick = function() {
+    const email = prompt("Enter your email:");
+    const username = prompt("Enter your username:");
+    const password = prompt("Enter your password:");
+    const confirmPassword = prompt("Re-enter your password:");
+
+    if (email && username && password && confirmPassword) {
+        if (password === confirmPassword) {
+            localStorage.setItem("email", email);
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+
+            // إنشاء عنوان محفظة وكلمات الاسترداد
+            const walletAddress = generateWalletAddress();
+            const recoveryWords = generateRecoveryWords();
+            localStorage.setItem("walletAddress", walletAddress);
+            localStorage.setItem("recoveryWords", recoveryWords);
+
+            alert("Registration successful!");
+            showWallet();
+        } else {
+            alert("Passwords do not match. Please try again.");
+        }
     } else {
-        isMining = false;
-        document.getElementById("startMiningButton").textContent = "Start Mining";
-        stopMiningTimer();
+        alert("Please fill in all fields.");
+    }
+};
+
+// زر تسجيل الدخول
+document.getElementById("loginButton").onclick = function() {
+    const username = prompt("Enter your username:");
+    const password = prompt("Enter your password:");
+
+    if (username === localStorage.getItem("username") && password === localStorage.getItem("password")) {
+        alert("Login successful!");
+        sessionStorage.setItem("loggedIn", true);
+        showWallet();
+    } else {
+        alert("Incorrect username or password.");
+    }
+};
+
+// إظهار المحفظة عند تسجيل الدخول
+function showWallet() {
+    document.querySelector(".auth-section").style.display = "none";
+    document.querySelector(".wallet-section").style.display = "block";
+    document.getElementById("walletAddressDisplay").textContent = localStorage.getItem("walletAddress");
+    updateBalance();
+    updateMiningTimer();
+}
+
+// تحديث الرصيد
+function updateBalance() {
+    document.getElementById("balance").textContent = "Balance: " + (localStorage.getItem("balance") || 0) + " AqsaCoins";
+}
+
+// بدء دورة التعدين مع مؤقت 24 ساعة
+document.getElementById("mineButton").onclick = function() {
+    const lastMiningTime = localStorage.getItem("lastMiningTime");
+    const now = Date.now();
+
+    if (!lastMiningTime || now - lastMiningTime >= 24 * 60 * 60 * 1000) {
+        alert("Mining started! You have mined 3 AqsaCoins.");
+        localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) + 3).toString());
+        localStorage.setItem("lastMiningTime", now);
+        updateBalance();
+        updateMiningTimer();
+    } else {
+        const remainingTime = 24 * 60 * 60 * 1000 - (now - lastMiningTime);
+        alert("You need to wait " + formatTime(remainingTime) + " for the next mining cycle.");
+    }
+};
+
+// تحديث وقت التعدين المتبقي
+function updateMiningTimer() {
+    const lastMiningTime = localStorage.getItem("lastMiningTime");
+    if (lastMiningTime) {
+        const now = Date.now();
+        const remainingTime = 24 * 60 * 60 * 1000 - (now - lastMiningTime);
+        if (remainingTime > 0) {
+            document.getElementById("miningTimer").textContent = "Next mining available in: " + formatTime(remainingTime);
+            setTimeout(updateMiningTimer, 1000);
+        } else {
+            document.getElementById("miningTimer").textContent = "You can start mining now!";
+        }
     }
 }
 
-// Start mining timer (24 hours)
-function startMiningTimer() {
-    const countdownElement = document.getElementById("countdown");
-
-    let timeLeft = 24 * 60 * 60; // 24 hours in seconds
-    miningTimer = setInterval(function() {
-        if (timeLeft <= 0) {
-            clearInterval(miningTimer);
-            alert("Mining cycle complete!");
-            coins += 3; // Adding 3 coins after each mining cycle
-            document.getElementById("coinCount").textContent = coins;
-            document.getElementById("countdown").textContent = "00:00:00";
-            return;
-        }
-
-        let hours = Math.floor(timeLeft / 3600);
-        let minutes = Math.floor((timeLeft % 3600) / 60);
-        let seconds = timeLeft % 60;
-
-        countdownElement.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-        timeLeft--;
-    }, 1000);
+// تنسيق الوقت المتبقي
+function formatTime(ms) {
+    const hours = Math.floor(ms / (60 * 60 * 1000));
+    const minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+    const seconds = Math.floor((ms % (60 * 1000)) / 1000);
+    return `${hours}h ${minutes}m ${seconds}s`;
 }
 
-// Stop mining timer
-function stopMiningTimer() {
-    clearInterval(miningTimer);
-}
+// إظهار/إخفاء عنوان المحفظة
+document.getElementById("walletButton").onclick = function() {
+    const walletAddress = document.getElementById("walletAddress");
+    walletAddress.style.display = walletAddress.style.display === "none" ? "block" : "none";
+};
 
-// Pad numbers for timer format
-function pad(num) {
-    return num < 10 ? "0" + num : num;
-}
+// إظهار/إخفاء كلمات الاسترداد
+document.getElementById("recoveryToggleButton").onclick = function() {
+    const recoveryWords = document.getElementById("recoveryWords");
+    recoveryWords.style.display = recoveryWords.style.display === "none" ? "block" : "none";
+};
+
+// زر تسجيل الخروج
+document.getElementById("logoutButton").onclick = function() {
+    sessionStorage.removeItem("loggedIn");
+    document.querySelector(".wallet-section").style.display = "none";
+    document.querySelector(".auth-section").style.display = "block";
+};
+
+// التأكد من تسجيل الدخول عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function() {
+    if (sessionStorage.getItem("loggedIn") === "true") {
+        showWallet();
+    } else {
+        document.querySelector(".wallet-section").style.display = "none";
+    }
+    updateBalance();
+});
