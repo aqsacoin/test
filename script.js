@@ -1,61 +1,54 @@
-// Simulate login status
-let loggedIn = false;
-
-// Function to check login status
-function isLoggedIn() {
-    return loggedIn;
-}
-
-// Set up the wallet section when logged in
-function setupWalletPage() {
-    const walletAddress = "YourWalletAddress123"; // Placeholder address
-    document.getElementById("walletAddress").textContent = `Wallet Address: ${walletAddress}`;
-    
-    // Start mining timer
-    let timeLeft = 24 * 60 * 60; // 24 hours in seconds
-    const miningTimer = document.getElementById("miningTimer");
-
-    const timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            miningTimer.textContent = "Mining completed!";
-        } else {
-            timeLeft--;
-            const hours = Math.floor(timeLeft / 3600);
-            const minutes = Math.floor((timeLeft % 3600) / 60);
-            const seconds = timeLeft % 60;
-            miningTimer.textContent = `Mining Timer: ${hours}:${minutes}:${seconds}`;
-        }
-    }, 1000);
-}
-
-// Show login/register buttons or wallet section based on login status
-window.onload = function() {
-    if (isLoggedIn()) {
-        document.querySelector(".auth-buttons").style.display = "none";
-        document.querySelector(".wallet-section").style.display = "block";
-        setupWalletPage();
+// تنفيذ عملية التسجيل
+document.getElementById("registerButton").onclick = function() {
+    // تحقق من إدخال بيانات المستخدم
+    const username = prompt("Enter your username:");
+    const password = prompt("Enter your password:");
+    if (username && password) {
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
+        alert("Registration successful!");
+        showWallet();
     } else {
-        document.querySelector(".auth-buttons").style.display = "block";
-        document.querySelector(".wallet-section").style.display = "none";
+        alert("Please enter both username and password.");
     }
 };
 
-// Register button event
-document.getElementById("registerButton").onclick = function() {
-    alert("Register button clicked. Registration not yet implemented.");
-};
-
-// Login button event
+// تنفيذ عملية تسجيل الدخول
 document.getElementById("loginButton").onclick = function() {
-    alert("Login button clicked. Logging in...");
-    loggedIn = true;
-    document.querySelector(".auth-buttons").style.display = "none";
-    document.querySelector(".wallet-section").style.display = "block";
-    setupWalletPage();
+    const username = prompt("Enter your username:");
+    const password = prompt("Enter your password:");
+    if (username === localStorage.getItem("username") && password === localStorage.getItem("password")) {
+        alert("Login successful!");
+        showWallet();
+    } else {
+        alert("Incorrect username or password.");
+    }
 };
 
-// Start Mining button event
-document.getElementById("startMiningButton").onclick = function() {
-    alert("Mining started!");
-};
+// عرض المحفظة وإنشاء كلمات الاسترداد
+function showWallet() {
+    document.querySelector(".wallet-section").style.display = "block";
+
+    // توليد عنوان المحفظة
+    const walletAddress = "0x" + Math.random().toString(36).substr(2, 40);
+    document.getElementById("walletAddress").textContent = walletAddress;
+
+    // توليد كلمات استرداد عشوائية
+    const words = generateRecoveryWords();
+    document.getElementById("recoveryWords").textContent = words.join(" ");
+}
+
+// وظيفة توليد كلمات استرداد عشوائية
+function generateRecoveryWords() {
+    const wordsList = ["apple", "banana", "orange", "grape", "mango", "pear", "peach", "cherry", "kiwi", "melon", "berry", "plum"];
+    let recoveryWords = [];
+    for (let i = 0; i < 12; i++) {
+        recoveryWords.push(wordsList[Math.floor(Math.random() * wordsList.length)]);
+    }
+    return recoveryWords;
+}
+
+// إخفاء المحفظة عند بداية الصفحة
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector(".wallet-section").style.display = "none";
+});
