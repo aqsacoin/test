@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqsaCoin</title>
+    <title>AqsaCoin Wallet</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,24 +18,18 @@
         </nav>
     </header>
 
-    <!-- Main content -->
-    <section class="main-content">
-        <h1>Welcome to AqsaCoin</h1>
-        <p>Your cryptocurrency mining site</p>
+    <!-- Authentication Buttons -->
+    <section class="auth-buttons">
+        <button id="registerButton">Register</button>
+        <button id="loginButton">Login</button>
+    </section>
 
-        <div class="auth-buttons">
-            <button id="registerButton">Register</button>
-            <button id="loginButton">Login</button>
-        </div>
-
-        <!-- Wallet Section -->
-        <div class="wallet-section" style="display: none;">
-            <h2>Your Wallet</h2>
-            <p id="walletAddress">Wallet Address: N/A</p>
-            <p id="walletBalance">Balance: 0 AQSA</p>
-            <button id="startMiningButton">Start Mining</button>
-            <p id="miningTimer">Next mining cycle in: 24:00:00</p>
-        </div>
+    <!-- Wallet Section (Hidden by default) -->
+    <section class="wallet-section" style="display: none;">
+        <h2>Your Wallet</h2>
+        <p id="walletAddress">Wallet Address: [Your Address]</p>
+        <p id="miningTimer">Mining Timer: 24:00:00</p>
+        <button id="startMiningButton">Start Mining</button>
     </section>
 
     <script src="script.js"></script>
