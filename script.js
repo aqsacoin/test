@@ -98,9 +98,30 @@ function updateBalance(user) {
 }
 
 // بدء دورة التعدين مع مؤقت 8 ساعات
-document.getElementById("mineButton").onclick = async function() {
-    const contract = await contractOperations();
-    contract.mineCoins(); // دالة التعدين عبر العقد الذكي
+document.getElementById("mineButton").onclick = function() {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser) {
+        const lastMiningTime = localStorage.getItem("lastMiningTime");
+        const now = Date.now();
+
+        // تحقق من أن وقت التعدين السابق قد مر عليه 8 ساعات
+        if (!lastMiningTime || now - lastMiningTime >= 8 * 60 * 60 * 1000) {
+            // بدء التعدين: إضافة 10 عملات للمستخدم
+            loggedInUser.balance += 10;
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+            localStorage.setItem("lastMiningTime", now);
+
+            alert("Mining successful! You earned 10 AqsaCoins.");
+
+            // تحديث الرصيد
+            updateBalance(loggedInUser);
+
+            // تحديث مؤقت التعدين
+            updateMiningTimer();
+        } else {
+            alert("You can mine again after 8 hours.");
+        }
+    }
 };
 
 // تحديث وقت التعدين المتبقي
@@ -111,7 +132,7 @@ function updateMiningTimer() {
         const remainingTime = 8 * 60 * 60 * 1000 - (now - lastMiningTime);
         if (remainingTime > 0) {
             document.getElementById("miningTimer").textContent = "Next mining available in: " + formatTime(remainingTime);
-            setTimeout(updateMiningTimer, 1000);
+            setTimeout(updateMiningTimer, 1000);  // إعادة التحديث كل ثانية
         } else {
             document.getElementById("miningTimer").textContent = "You can start mining now!";
         }
@@ -133,14 +154,19 @@ document.getElementById("walletButton").onclick = function() {
 };
 
 // زر إرسال العملات
-document.getElementById("sendCoinsButton").onclick = async function() {
+document.getElementById("sendCoinsButton").onclick = function() {
     const recipientAddress = prompt("Enter the recipient's wallet address:");
     const amount = parseInt(prompt("Enter the amount of AqsaCoins to send:"));
 
     // تحقق من المدخلات
-    if (recipientAddress && amount && amount > 0 && amount <= parseInt(localStorage.getItem("balance") || 0)) {
-        const contract = await contractOperations();
-        contract.sendCoins(recipientAddress, amount);  // إرسال العملات عبر العقد الذكي
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (recipientAddress && amount && amount > 0 && amount <= loggedInUser.balance) {
+        loggedInUser.balance -= amount;
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}`);
+
+        // تحديث الرصيد
+        updateBalance(loggedInUser);
     } else {
         alert("Invalid address or insufficient balance.");
     }
@@ -161,6 +187,7 @@ window.onload = function() {
     if (loggedIn) {
         const user = JSON.parse(localStorage.getItem("loggedInUser"));
         showWallet(user);
+        updateMiningTimer(); // تحديث وقت التعدين عند تحميل الصفحة
     } else {
         document.querySelector(".auth-section").style.display = "block";
         document.querySelector(".wallet-section").style.display = "none";
