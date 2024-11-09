@@ -1,7 +1,7 @@
 /* CSS لتحسين التصميم و الألوان */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed; 
+    background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed;
     background-size: cover;  /* لتغطية كامل الشاشة */
     color: #fff;
     display: flex;
@@ -29,17 +29,28 @@ h1 {
 }
 
 button {
-    background-color: #ff5733;
-    color: white;
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
+    background: transparent; /* خلفية شفافة */
+    color: #ff5733;
+    padding: 20px;
+    margin: 10px;
+    border: 3px solid #ff5733; /* إطار بالألوان الزاهية */
+    border-radius: 50%; /* الشكل الدائري */
     cursor: pointer;
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة كخلفية */
+    background-size: cover;  /* لتغطية كامل الزر */
+    background-position: center;
+    text-align: center;
+    line-height: 60px; /* لضبط النص داخل الأزرار */
 }
 
 button:hover {
-    background-color: #ff8d72;
+    background-color: rgba(255, 87, 51, 0.6); /* تأثير عند المرور */
+    border-color: #ff8d72;
+    transform: scale(1.1);
 }
 
 p {
@@ -61,7 +72,7 @@ p {
     font-size: 20px;
 }
 
-/* لإضافة تأثيرات لأزرار التفاعل */
+/* إضافة تأثير للأزرار */
 button {
     background-color: rgba(255, 87, 51, 0.8);
     color: white;
