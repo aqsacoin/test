@@ -35,15 +35,15 @@ h1 {
 
 button {
     background: rgba(255, 87, 51, 0.3);  /* خلفية شفافة (علامة مائية) */
-    color: #ff5733;
+    color: #fff;  /* اللون الأبيض للنص */
     padding: 30px;
     margin: 10px;
     border: 3px solid #ff5733; /* إطار بالألوان الزاهية */
     border-radius: 8px;  /* زاوية حواف الأزرار */
     cursor: pointer;
-    width: 100px;
-    height: 100px;
-    font-size: 16px;
+    width: 120px;
+    height: 120px;
+    font-size: 18px; /* زيادة حجم الخط ليكون أكثر وضوحًا */
     transition: all 0.3s ease;
     background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة كخلفية */
     background-size: 50%; /* تعيين حجم الصورة */
@@ -51,6 +51,7 @@ button {
     text-align: center;
     line-height: 60px; /* لضبط النص داخل الأزرار */
     filter: opacity(0.5); /* شفافية الصورة في الأزرار */
+    font-weight: bold; /* جعل النص أكثر وضوحًا */
 }
 
 button:hover {
@@ -73,15 +74,18 @@ button {
     background-color: rgba(255, 87, 51, 0.3);
     border: 3px solid #ff5733;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* شكل سداسي */
+    font-size: 18px; /* زيادة حجم الخط هنا أيضًا */
 }
 
+/* تحسين محاذاة النص داخل الأزرار */
 button span {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 16px;
+    font-size: 18px; /* تكبير الخط داخل الأزرار */
+    font-weight: bold; /* تعيين وزن الخط ليكون أكثر وضوحًا */
 }
 
 /* تحسين الشكل العام للمحتوى */
