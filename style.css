@@ -16,7 +16,8 @@ body {
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.8); /* خلفية شفافة مع الظل الأسود */
     border-radius: 8px;
-    width: 300px;
+    width: 80%;
+    max-width: 800px;
 }
 
 h1 {
@@ -26,25 +27,30 @@ h1 {
 
 .auth-section, .wallet-section {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 button {
-    background: transparent; /* خلفية شفافة */
+    background: rgba(255, 87, 51, 0.3);  /* خلفية شفافة (علامة مائية) */
     color: #ff5733;
-    padding: 20px;
+    padding: 30px;
     margin: 10px;
     border: 3px solid #ff5733; /* إطار بالألوان الزاهية */
-    border-radius: 50%; /* الشكل الدائري */
+    border-radius: 8px;  /* زاوية حواف الأزرار */
     cursor: pointer;
     width: 100px;
     height: 100px;
     font-size: 16px;
     transition: all 0.3s ease;
     background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة كخلفية */
-    background-size: cover;  /* لتغطية كامل الزر */
+    background-size: 50%; /* تعيين حجم الصورة */
     background-position: center;
     text-align: center;
     line-height: 60px; /* لضبط النص داخل الأزرار */
+    filter: opacity(0.5); /* شفافية الصورة في الأزرار */
 }
 
 button:hover {
@@ -53,40 +59,29 @@ button:hover {
     transform: scale(1.1);
 }
 
-p {
-    margin: 10px 0;
-}
-
-/* لتغيير الأيقونات واستخدام الصورة */
-.icon {
-    background-image: url('https://i.imgur.com/02hGoe4.jpeg');
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 10px;
-    text-align: center;
-    line-height: 50px;
-    color: white;
-    font-size: 20px;
-}
-
-/* إضافة تأثير للأزرار */
-button {
+button:active {
     background-color: rgba(255, 87, 51, 0.8);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: all 0.3s ease;
+    transform: scale(1);
 }
 
-button:hover {
-    background-color: #ff5733;
-    transform: scale(1.05);
+/* لتحويل الأزرار إلى شكل سداسي */
+button {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    background-color: rgba(255, 87, 51, 0.3);
+    border: 3px solid #ff5733;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* شكل سداسي */
+}
+
+button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
 }
 
 /* تحسين الشكل العام للمحتوى */
