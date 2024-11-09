@@ -1,27 +1,32 @@
-/* CSS لتحسين التصميم و الألوان */
+/* CSS لتحسين التصميم و الألوان مع الخلفية الشفافة */
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #4a90e2, #e94e77);
+    background: url('https://i.imgur.com/KOMC4sI.jpg') center center no-repeat;
+    background-size: cover;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-attachment: fixed;
 }
 
 .container {
     text-align: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7); /* الشفافية محسّنة هنا */
     border-radius: 8px;
-    width: 300px;
+    width: 80%;
+    max-width: 400px;
 }
 
 h1 {
-    color: #f4f4f4;
+    color: #fff;
+    font-size: 2.5em;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* تحسين الظلال لتوضيح النص */
 }
 
 .auth-section, .wallet-section {
