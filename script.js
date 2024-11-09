@@ -1,4 +1,4 @@
-// توليد 12 كلمة استرداد عشوائية
+// دالة لتوليد الكلمات الاستردادية
 function generateRecoveryWords() {
     const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
     let recoveryPhrase = [];
@@ -8,7 +8,7 @@ function generateRecoveryWords() {
     return recoveryPhrase.join(" ");
 }
 
-// توليد عنوان محفظة يتوافق مع شبكة TON
+// دالة لتوليد عنوان محفظة يتوافق مع شبكة TON
 function generateWalletAddress() {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let address = "EQ";  // بداية العنوان تكون "EQ" لشبكة TON
@@ -18,59 +18,15 @@ function generateWalletAddress() {
     return address;
 }
 
-// توليد العقد الذكي والعمليات المتعلقة به
-async function contractOperations() {
-    // عقد ذكي لاسترجاع الرصيد من الشبكة
-    async function getBalance(address) {
-        // استدعاء دالة من العقد الذكي لاسترجاع الرصيد
-        return await smartContract.getBalance(address); // استبدال هذا بالسطر المناسب لمشروعك
-    }
+// دالة للتأكد من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+function isEmailOrUsernameTaken(email, username) {
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
 
-    // عقد ذكي للقيام بعملية التعدين
-    async function mineCoins() {
-        const lastMiningTime = localStorage.getItem("lastMiningTime");
-        const now = Date.now();
-
-        if (!lastMiningTime || now - lastMiningTime >= 8 * 60 * 60 * 1000) {
-            // إجراء التعدين عبر العقد الذكي
-            const minedCoins = await smartContract.mine(10); // تعدين 10 عملات
-            localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) + minedCoins).toString());
-            localStorage.setItem("lastMiningTime", now);
-            updateBalance();
-            updateMiningTimer();
-            alert("Mining successful! You have mined 10 AqsaCoins.");
-        } else {
-            const remainingTime = 8 * 60 * 60 * 1000 - (now - lastMiningTime);
-            alert("You need to wait " + formatTime(remainingTime) + " for the next mining cycle.");
-        }
-    }
-
-    // عقد ذكي لإرسال العملات
-    async function sendCoins(recipientAddress, amount) {
-        const senderAddress = localStorage.getItem("walletAddress");
-
-        // تحقق من رصيد المرسل
-        const senderBalance = await getBalance(senderAddress);
-        if (senderBalance >= amount) {
-            // تنفيذ المعاملة عبر العقد الذكي
-            const result = await smartContract.transfer(senderAddress, recipientAddress, amount);
-            alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}.`);
-            updateBalance();
-        } else {
-            alert("Insufficient balance.");
-        }
-    }
-
-    // دوال إضافية أخرى مثل التحقق من حالة التعدين، الرصيد، والتحويلات ستحتاج إلى التنفيذ عبر العقد الذكي.
-
-    return {
-        getBalance,
-        mineCoins,
-        sendCoins
-    };
+    // التحقق من وجود البريد الإلكتروني أو اسم المستخدم في قائمة المستخدمين
+    return existingUsers.some(user => user.email === email || user.username === username);
 }
 
-// زر التسجيل
+// دالة للتسجيل
 document.getElementById("registerButton").onclick = function() {
     const email = prompt("Enter your email:");
     const username = prompt("Enter your username:");
@@ -78,54 +34,66 @@ document.getElementById("registerButton").onclick = function() {
     const confirmPassword = prompt("Re-enter your password:");
 
     if (email && username && password && confirmPassword) {
-        if (password === confirmPassword) {
-            localStorage.setItem("email", email);
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
-
-            // إنشاء عنوان محفظة وكلمات الاسترداد
-            const walletAddress = generateWalletAddress(); // استخدام دالة توليد عنوان محفظة TON
-            const recoveryWords = generateRecoveryWords();
-            localStorage.setItem("walletAddress", walletAddress);
-            localStorage.setItem("recoveryWords", recoveryWords);
-            localStorage.setItem("balance", 0); // رصيد البداية 0
-
-            alert("Registration successful!");
-            showWallet();
+        // التحقق من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+        if (isEmailOrUsernameTaken(email, username)) {
+            alert("Email or Username is already taken. Please try another one.");
         } else {
-            alert("Passwords do not match. Please try again.");
+            if (password === confirmPassword) {
+                // تخزين بيانات المستخدم الجديدة
+                const newUser = {
+                    email: email,
+                    username: username,
+                    password: password,
+                    walletAddress: generateWalletAddress(),
+                    recoveryWords: generateRecoveryWords(),
+                    balance: 0,
+                };
+
+                const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+                existingUsers.push(newUser);
+                localStorage.setItem("users", JSON.stringify(existingUsers));
+
+                alert("Registration successful!");
+                showWallet(newUser);
+            } else {
+                alert("Passwords do not match. Please try again.");
+            }
         }
     } else {
         alert("Please fill in all fields.");
     }
 };
 
-// زر تسجيل الدخول
+// دالة لتسجيل الدخول
 document.getElementById("loginButton").onclick = function() {
     const username = prompt("Enter your username:");
     const password = prompt("Enter your password:");
 
-    if (username === localStorage.getItem("username") && password === localStorage.getItem("password")) {
+    // البحث عن المستخدم في قائمة المستخدمين المخزنة
+    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = existingUsers.find(user => user.username === username && user.password === password);
+
+    if (user) {
         alert("Login successful!");
-        localStorage.setItem("loggedIn", true);  // تغيير من sessionStorage إلى localStorage
-        showWallet();
+        localStorage.setItem("loggedIn", true);
+        showWallet(user);
     } else {
         alert("Incorrect username or password.");
     }
 };
 
-// إظهار المحفظة عند تسجيل الدخول
-function showWallet() {
+// دالة لإظهار المحفظة بعد تسجيل الدخول
+function showWallet(user) {
     document.querySelector(".auth-section").style.display = "none";
     document.querySelector(".wallet-section").style.display = "block";
-    document.getElementById("walletAddressDisplay").textContent = localStorage.getItem("walletAddress");
-    updateBalance();
+    document.getElementById("walletAddressDisplay").textContent = user.walletAddress;
+    updateBalance(user);
     updateMiningTimer();
 }
 
-// تحديث الرصيد
-function updateBalance() {
-    document.getElementById("balance").textContent = "Balance: " + (localStorage.getItem("balance") || 0) + " AqsaCoins";
+// دالة لتحديث الرصيد
+function updateBalance(user) {
+    document.getElementById("balance").textContent = "Balance: " + user.balance + " AqsaCoins";
 }
 
 // بدء دورة التعدين مع مؤقت 8 ساعات
@@ -179,7 +147,7 @@ document.getElementById("sendCoinsButton").onclick = async function() {
 
 // زر تسجيل الخروج
 document.getElementById("logoutButton").onclick = function() {
-    localStorage.removeItem("loggedIn");  // تغيير من sessionStorage إلى localStorage
+    localStorage.removeItem("loggedIn");
     document.querySelector(".wallet-section").style.display = "none";
     document.querySelector(".auth-section").style.display = "block";
     alert("Logged out successfully.");
