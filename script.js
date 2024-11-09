@@ -8,11 +8,11 @@ function generateRecoveryWords() {
     return recoveryPhrase.join(" ");
 }
 
-// توليد عنوان محفظة طويل
+// توليد عنوان محفظة يتوافق مع شبكة TON
 function generateWalletAddress() {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let address = "AQSA-";
-    for (let i = 0; i < 16; i++) {
+    let address = "EQ";  // بداية العنوان تكون "EQ" لشبكة TON
+    for (let i = 0; i < 48; i++) {  // العنوان يتكون من 48 حرفًا بعد "EQ"
         address += chars[Math.floor(Math.random() * chars.length)];
     }
     return address;
@@ -32,7 +32,7 @@ document.getElementById("registerButton").onclick = function() {
             localStorage.setItem("password", password);
 
             // إنشاء عنوان محفظة وكلمات الاسترداد
-            const walletAddress = generateWalletAddress();
+            const walletAddress = generateWalletAddress(); // استخدام دالة توليد عنوان محفظة TON
             const recoveryWords = generateRecoveryWords();
             localStorage.setItem("walletAddress", walletAddress);
             localStorage.setItem("recoveryWords", recoveryWords);
