@@ -75,7 +75,8 @@ document.getElementById("loginButton").onclick = function() {
 
     if (user) {
         alert("Login successful!");
-        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("loggedIn", true); // تخزين حالة تسجيل الدخول
+        localStorage.setItem("loggedInUser", JSON.stringify(user)); // تخزين بيانات المستخدم المسجل
         showWallet(user);
     } else {
         alert("Incorrect username or password.");
@@ -148,7 +149,20 @@ document.getElementById("sendCoinsButton").onclick = async function() {
 // زر تسجيل الخروج
 document.getElementById("logoutButton").onclick = function() {
     localStorage.removeItem("loggedIn");
+    localStorage.removeItem("loggedInUser");
     document.querySelector(".wallet-section").style.display = "none";
     document.querySelector(".auth-section").style.display = "block";
     alert("Logged out successfully.");
+};
+
+// التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+window.onload = function() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn) {
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+        showWallet(user);
+    } else {
+        document.querySelector(".auth-section").style.display = "block";
+        document.querySelector(".wallet-section").style.display = "none";
+    }
 };
