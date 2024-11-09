@@ -18,6 +18,58 @@ function generateWalletAddress() {
     return address;
 }
 
+// توليد العقد الذكي والعمليات المتعلقة به
+async function contractOperations() {
+    // عقد ذكي لاسترجاع الرصيد من الشبكة
+    async function getBalance(address) {
+        // استدعاء دالة من العقد الذكي لاسترجاع الرصيد
+        return await smartContract.getBalance(address); // استبدال هذا بالسطر المناسب لمشروعك
+    }
+
+    // عقد ذكي للقيام بعملية التعدين
+    async function mineCoins() {
+        const lastMiningTime = localStorage.getItem("lastMiningTime");
+        const now = Date.now();
+
+        if (!lastMiningTime || now - lastMiningTime >= 8 * 60 * 60 * 1000) {
+            // إجراء التعدين عبر العقد الذكي
+            const minedCoins = await smartContract.mine(10); // تعدين 10 عملات
+            localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) + minedCoins).toString());
+            localStorage.setItem("lastMiningTime", now);
+            updateBalance();
+            updateMiningTimer();
+            alert("Mining successful! You have mined 10 AqsaCoins.");
+        } else {
+            const remainingTime = 8 * 60 * 60 * 1000 - (now - lastMiningTime);
+            alert("You need to wait " + formatTime(remainingTime) + " for the next mining cycle.");
+        }
+    }
+
+    // عقد ذكي لإرسال العملات
+    async function sendCoins(recipientAddress, amount) {
+        const senderAddress = localStorage.getItem("walletAddress");
+
+        // تحقق من رصيد المرسل
+        const senderBalance = await getBalance(senderAddress);
+        if (senderBalance >= amount) {
+            // تنفيذ المعاملة عبر العقد الذكي
+            const result = await smartContract.transfer(senderAddress, recipientAddress, amount);
+            alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}.`);
+            updateBalance();
+        } else {
+            alert("Insufficient balance.");
+        }
+    }
+
+    // دوال إضافية أخرى مثل التحقق من حالة التعدين، الرصيد، والتحويلات ستحتاج إلى التنفيذ عبر العقد الذكي.
+
+    return {
+        getBalance,
+        mineCoins,
+        sendCoins
+    };
+}
+
 // زر التسجيل
 document.getElementById("registerButton").onclick = function() {
     const email = prompt("Enter your email:");
@@ -76,21 +128,10 @@ function updateBalance() {
     document.getElementById("balance").textContent = "Balance: " + (localStorage.getItem("balance") || 0) + " AqsaCoins";
 }
 
-// بدء دورة التعدين مع مؤقت 24 ساعة
-document.getElementById("mineButton").onclick = function() {
-    const lastMiningTime = localStorage.getItem("lastMiningTime");
-    const now = Date.now();
-
-    if (!lastMiningTime || now - lastMiningTime >= 24 * 60 * 60 * 1000) {
-        alert("Mining started! You have mined 3 AqsaCoins.");
-        localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) + 3).toString());
-        localStorage.setItem("lastMiningTime", now);
-        updateBalance();
-        updateMiningTimer();
-    } else {
-        const remainingTime = 24 * 60 * 60 * 1000 - (now - lastMiningTime);
-        alert("You need to wait " + formatTime(remainingTime) + " for the next mining cycle.");
-    }
+// بدء دورة التعدين مع مؤقت 8 ساعات
+document.getElementById("mineButton").onclick = async function() {
+    const contract = await contractOperations();
+    contract.mineCoins(); // دالة التعدين عبر العقد الذكي
 };
 
 // تحديث وقت التعدين المتبقي
@@ -98,7 +139,7 @@ function updateMiningTimer() {
     const lastMiningTime = localStorage.getItem("lastMiningTime");
     if (lastMiningTime) {
         const now = Date.now();
-        const remainingTime = 24 * 60 * 60 * 1000 - (now - lastMiningTime);
+        const remainingTime = 8 * 60 * 60 * 1000 - (now - lastMiningTime);
         if (remainingTime > 0) {
             document.getElementById("miningTimer").textContent = "Next mining available in: " + formatTime(remainingTime);
             setTimeout(updateMiningTimer, 1000);
@@ -123,26 +164,14 @@ document.getElementById("walletButton").onclick = function() {
 };
 
 // زر إرسال العملات
-document.getElementById("sendCoinsButton").onclick = function() {
+document.getElementById("sendCoinsButton").onclick = async function() {
     const recipientAddress = prompt("Enter the recipient's wallet address:");
     const amount = parseInt(prompt("Enter the amount of AqsaCoins to send:"));
 
     // تحقق من المدخلات
     if (recipientAddress && amount && amount > 0 && amount <= parseInt(localStorage.getItem("balance") || 0)) {
-        // استرجاع رصيد المرسل إليه (إن وجد) أو تعيين رصيد جديد إذا كانت المحفظة جديدة
-        let recipientBalance = localStorage.getItem("recipientBalance-" + recipientAddress);
-        if (!recipientBalance) {
-            recipientBalance = 0; // إذا كانت المحفظة جديدة، تعيين رصيدها إلى 0
-        }
-        
-        // إضافة العملات إلى محفظة المرسل إليه
-        localStorage.setItem("recipientBalance-" + recipientAddress, parseInt(recipientBalance) + amount);
-
-        // خصم العملات من رصيد المرسل
-        localStorage.setItem("balance", (parseInt(localStorage.getItem("balance") || 0) - amount).toString());
-
-        alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}.`);
-        updateBalance();
+        const contract = await contractOperations();
+        contract.sendCoins(recipientAddress, amount);  // إرسال العملات عبر العقد الذكي
     } else {
         alert("Invalid address or insufficient balance.");
     }
@@ -153,14 +182,5 @@ document.getElementById("logoutButton").onclick = function() {
     localStorage.removeItem("loggedIn");  // تغيير من sessionStorage إلى localStorage
     document.querySelector(".wallet-section").style.display = "none";
     document.querySelector(".auth-section").style.display = "block";
+    alert("Logged out successfully.");
 };
-
-// التأكد من تسجيل الدخول عند تحميل الصفحة
-document.addEventListener("DOMContentLoaded", function() {
-    if (localStorage.getItem("loggedIn") === "true") {  // تغيير من sessionStorage إلى localStorage
-        showWallet();
-    } else {
-        document.querySelector(".wallet-section").style.display = "none";
-    }
-    updateBalance();
-});
