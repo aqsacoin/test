@@ -1,32 +1,27 @@
-/* CSS لتحسين التصميم و الألوان مع الخلفية الشفافة */
-
+/* CSS لتحسين التصميم و الألوان */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://i.imgur.com/KOMC4sI.jpg') center center no-repeat;
-    background-size: cover;
+    background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed; 
+    background-size: cover;  /* لتغطية كامل الشاشة */
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-attachment: fixed;
 }
 
 .container {
     text-align: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7); /* الشفافية محسّنة هنا */
+    background-color: rgba(0, 0, 0, 0.8); /* خلفية شفافة مع الظل الأسود */
     border-radius: 8px;
-    width: 80%;
-    max-width: 400px;
+    width: 300px;
 }
 
 h1 {
-    color: #fff;
-    font-size: 2.5em;
+    color: #f4f4f4;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* تحسين الظلال لتوضيح النص */
 }
 
 .auth-section, .wallet-section {
@@ -49,4 +44,57 @@ button:hover {
 
 p {
     margin: 10px 0;
+}
+
+/* لتغيير الأيقونات واستخدام الصورة */
+.icon {
+    background-image: url('https://i.imgur.com/02hGoe4.jpeg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    font-size: 20px;
+}
+
+/* لإضافة تأثيرات لأزرار التفاعل */
+button {
+    background-color: rgba(255, 87, 51, 0.8);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff5733;
+    transform: scale(1.05);
+}
+
+/* تحسين الشكل العام للمحتوى */
+.container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.auth-section, .wallet-section {
+    margin-top: 20px;
+}
+
+.auth-section button {
+    width: 100%;
+}
+
+p {
+    font-size: 14px;
+    color: #f4f4f4;
+    margin: 5px 0;
 }
