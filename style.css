@@ -1,8 +1,8 @@
-/* CSS لتحسين التصميم و الألوان */
+/* CSS لتحسين التصميم والألوان */
 body {
     font-family: Arial, sans-serif;
     background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed;
-    background-size: cover;  /* لتغطية كامل الشاشة */
+    background-size: cover;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@ body {
 .container {
     text-align: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* خلفية شفافة مع الظل الأسود */
+    background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     width: 80%;
     max-width: 800px;
@@ -34,28 +34,31 @@ h1 {
 }
 
 button {
-    background: rgba(255, 87, 51, 0.3);  /* خلفية شفافة (علامة مائية) */
-    color: #FFFFFF;  /* اللون الأبيض للنص */
-    padding: 30px;
+    background: rgba(255, 87, 51, 0.3);
+    color: #000000; /* اللون الأسود للنص */
+    padding: 15px;
     margin: 10px;
-    border: 3px solid #ff5733; /* إطار بالألوان الزاهية */
-    border-radius: 8px;  /* زاوية حواف الأزرار */
+    border: 2px solid #ff5733;
     cursor: pointer;
-    width: 120px;
-    height: 120px;
-    font-size: 18px; /* زيادة حجم الخط ليكون أكثر وضوحًا */
+    width: 100px;
+    height: 100px;
+    font-size: 14px; /* تصغير حجم الخط */
     transition: all 0.3s ease;
-    background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة كخلفية */
-    background-size: 50%; /* تعيين حجم الصورة */
     background-position: center;
     text-align: center;
-    line-height: 60px; /* لضبط النص داخل الأزرار */
-    filter: opacity(0.5); /* شفافية الصورة في الأزرار */
-    font-weight: bold; /* جعل النص أكثر وضوحًا */
+    line-height: 50px;
+    font-weight: bold;
+
+    /* تحويل الأزرار إلى شكل النجمة الثمانية */
+    clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 68% 57%, 
+        79% 91%, 50% 70%, 21% 91%, 32% 57%, 
+        2% 35%, 39% 35%
+    );
 }
 
 button:hover {
-    background-color: rgba(255, 87, 51, 0.6); /* تأثير عند المرور */
+    background-color: rgba(255, 87, 51, 0.6);
     border-color: #ff8d72;
     transform: scale(1.1);
 }
@@ -65,30 +68,17 @@ button:active {
     transform: scale(1);
 }
 
-/* لتحويل الأزرار إلى شكل سداسي */
-button {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    display: inline-block;
-    background-color: rgba(255, 87, 51, 0.3);
-    border: 3px solid #ff5733;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* شكل سداسي */
-    font-size: 18px; /* زيادة حجم الخط هنا أيضًا */
-}
-
 /* تحسين محاذاة النص داخل الأزرار */
 button span {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #FFFFFF;  /* النص باللون الأبيض */
-    font-size: 18px; /* تكبير الخط داخل الأزرار */
-    font-weight: bold; /* تعيين وزن الخط ليكون أكثر وضوحًا */
+    color: #000000; /* اللون الأسود للنص */
+    font-size: 14px;
+    font-weight: bold;
 }
 
-/* تحسين الشكل العام للمحتوى */
 .container h1 {
     font-size: 24px;
     font-weight: bold;
