@@ -18,6 +18,12 @@ function generateWalletAddress() {
     return address;
 }
 
+// دالة للتحقق من تنسيق البريد الإلكتروني
+function isValidEmail(email) {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+}
+
 // دالة للتأكد من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
 function isEmailOrUsernameTaken(email, username) {
     const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
@@ -34,6 +40,12 @@ document.getElementById("registerButton").onclick = function() {
     const confirmPassword = prompt("Re-enter your password:");
 
     if (email && username && password && confirmPassword) {
+        // التحقق من أن البريد الإلكتروني بتنسيق صحيح
+        if (!isValidEmail(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
         // التحقق من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
         if (isEmailOrUsernameTaken(email, username)) {
             alert("Email or Username is already taken. Please try another one.");
