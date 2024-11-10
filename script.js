@@ -1,4 +1,4 @@
-// دالة لتوليد كلمات استرداد جديدة
+// دالة لتوليد الكلمات الاستردادية
 function generateRecoveryWords() {
     const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
     let recoveryPhrase = [];
@@ -20,7 +20,7 @@ function generateWalletAddress() {
 
 // دالة للتحقق من تنسيق البريد الإلكتروني
 function isValidEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
 }
 
@@ -31,58 +31,6 @@ function isEmailOrUsernameTaken(email, username) {
     // التحقق من وجود البريد الإلكتروني أو اسم المستخدم في قائمة المستخدمين
     return existingUsers.some(user => user.email === email || user.username === username);
 }
-
-// دالة لتوليد رمز استرداد عشوائي
-function generateRecoveryCode() {
-    const code = Math.floor(100000 + Math.random() * 900000); // رمز مكون من 6 أرقام
-    return code;
-}
-
-// دالة لتخزين رمز الاسترداد مع وقت انتهاء الصلاحية
-function storeRecoveryCode(email, code) {
-    const expiryTime = Date.now() + 5 * 60 * 1000;  // 5 دقائق من الآن
-    const recoveryData = { code, expiryTime };
-    localStorage.setItem(`recoveryCode_${email}`, JSON.stringify(recoveryData));
-}
-
-// دالة للتحقق من صلاحية رمز الاسترداد
-function isRecoveryCodeValid(email, code) {
-    const recoveryData = JSON.parse(localStorage.getItem(`recoveryCode_${email}`));
-    if (recoveryData) {
-        const currentTime = Date.now();
-        if (currentTime <= recoveryData.expiryTime && recoveryData.code === code) {
-            return true;  // الرمز صالح
-        } else {
-            return false;  // الرمز منتهي الصلاحية أو خاطئ
-        }
-    }
-    return false;  // رمز الاسترداد غير موجود
-}
-
-// دالة لإرسال رمز الاسترداد إلى البريد الإلكتروني
-function sendRecoveryEmail(email) {
-    const code = generateRecoveryCode();
-    storeRecoveryCode(email, code);
-    alert(`A recovery code has been sent to your email. Your code is: ${code}`);
-}
-
-// دالة لاستعادة الحساب باستخدام البريد الإلكتروني
-document.getElementById("recoverButton").onclick = function() {
-    const email = prompt("Enter your email to recover your account:");
-
-    if (email && isValidEmail(email)) {
-        const code = prompt("Enter the recovery code sent to your email:");
-
-        if (isRecoveryCodeValid(email, code)) {
-            alert("Your account has been successfully recovered!");
-            // يمكنك إضافة أي إجراءات إضافية لاسترجاع الحساب هنا، مثل السماح للمستخدم بتغيير كلمة المرور.
-        } else {
-            alert("Invalid or expired recovery code.");
-        }
-    } else {
-        alert("Please enter a valid email address.");
-    }
-};
 
 // دالة للتسجيل
 document.getElementById("registerButton").onclick = function() {
@@ -214,4 +162,46 @@ function formatTime(ms) {
 // إظهار/إخفاء عنوان المحفظة
 document.getElementById("walletButton").onclick = function() {
     const walletAddress = document.getElementById("walletAddress");
-    walletAddress.style
+    walletAddress.style.display = walletAddress.style.display === "none" ? "block" : "none";
+};
+
+// زر إرسال العملات
+document.getElementById("sendCoinsButton").onclick = function() {
+    const recipientAddress = prompt("Enter the recipient's wallet address:");
+    const amount = parseInt(prompt("Enter the amount of AqsaCoins to send:"));
+
+    // تحقق من المدخلات
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (recipientAddress && amount && amount > 0 && amount <= loggedInUser.balance) {
+        loggedInUser.balance -= amount;
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+        alert(`Successfully sent ${amount} AqsaCoins to ${recipientAddress}`);
+
+        // تحديث الرصيد
+        updateBalance(loggedInUser);
+    } else {
+        alert("Invalid address or insufficient balance.");
+    }
+};
+
+// زر تسجيل الخروج
+document.getElementById("logoutButton").onclick = function() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("loggedInUser");
+    document.querySelector(".wallet-section").style.display = "none";
+    document.querySelector(".auth-section").style.display = "block";
+    alert("Logged out successfully.");
+};
+
+// التحقق من حالة تسجيل الدخول عند تحميل الصفحة
+window.onload = function() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn) {
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+        showWallet(user);
+        updateMiningTimer(); // تحديث وقت التعدين عند تحميل الصفحة
+    } else {
+        document.querySelector(".auth-section").style.display = "block";
+        document.querySelector(".wallet-section").style.display = "none";
+    }
+};
