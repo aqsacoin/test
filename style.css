@@ -1,65 +1,594 @@
-/* إعدادات عامة */
+<!DOCTYPE html>/* CSS لتحسين التصميم و الألوان */
 body {
-    font-family: 'Cairo', sans-serif; /* خط عربي مميز */
-    background-color: #f4f4f4; /* لون خلفية مريح */
-    color: #333; /* لون النص */
+    font-family: Arial, sans-serif;
+    background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
-/* تنسيق للواجهة */
 .container {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
     width: 80%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
 }
 
-/* عنوان */
-h1, h2, h3 {
-    color: #007b5e; /* لون أخضر متناسق */
-    text-align: center;
+h1 {
+    color: #f4f4f4;
+    margin-bottom: 20px;
 }
 
-/* أزرار */
-button {
-    background-color: #007b5e; /* لون أخضر للأزرار */
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* أزرار عند المرور */
-button:hover {
-    background-color: #005a40; /* لون أغمق عند التمرير */
-}
-
-/* حقول الإدخال */
-input[type="text"], input[type="password"], input[type="email"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* تنسيق خاص للأقسام */
 .auth-section, .wallet-section {
-    display: none;
-    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.wallet-section {
+button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 30px;
+    margin: 10px;
+    border: 3px solid #ff5733;
+    cursor: pointer;
+    width: 120px;
+    height: 120px;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
     text-align: center;
+
+    /* تصميم النجمة الثمانية */
+    clip-path: polygon(50% 0%, 65% 15%, 85% 15%, 100% 35%, 85% 50%, 100% 65%, 85% 85%, 65% 85%, 50% 100%, 35% 85%, 15% 85%, 0% 65%, 15% 50%, 0% 35%, 15% 15%, 35% 15%);
+    
+    /* خلفية قبة الصخرة بعلامة مائية */
+    background-image: url('https://i.imgur.com/02hGoe4.jpeg');
+    background-size: 80%; /* لضمان ملء الصورة داخل النجمة */
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.6; /* شفافية الصورة */
 }
+
+button:hover {
+    opacity: 0.75;
+    transform: scale(1.1);
+}
+
+button:active {
+    opacity: 0.85;
+    transform: scale(1);
+}
+
+button span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff; /* نص أبيض ناصع */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* تحسين الشكل العام للمحتوى */
+.container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.auth-section, .wallet-section {
+    margin-top: 20px;
+}
+
+.auth-section button {
+    width: 100%;
+}
+
+p {
+    font-size: 14px;
+    color: #f4f4f4;
+    margin: 5px 0;
+}
+
+<html lang="ar"><!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>نظام إدارة الحساب</title>
+    <style>
+        /* إعدادات عامة */
+        body {
+            font-family: 'Cairo', sans-serif; /* خط عربي مميز */
+            background-color: #f4f4f4; /* لون خلفية مريح */
+            color: #333; /* لون النص */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* تنسيق للواجهة */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* عنوان */
+        h1, h2, h3 {
+            color: #007b5e; /* لون أخضر متناسق */
+            text-align: center;
+        }
+
+        /* أزرار */
+        button {
+            background-color: #007b5e; /* لون أخضر للأزرار */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* أزرار عند المرور */
+        button:hover {
+            background-color: #005a40; /* لون أغمق عند التمرير */
+        }
+
+        /* حقول الإدخال */
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* تنسيق خاص للأقسام */
+        .auth-section, .wallet-section {
+            display: none;
+            padding: 20px;
+        }
+
+        .wallet-section {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>مرحبا بك في نظام إدارة الحساب</h1>
+
+        <!-- قسم المصادقة -->
+        <div class="auth-section">
+            <button id="registerButton">تسجيل</button>
+            <button id="loginButton">تسجيل الدخول</button>
+            <button id="recoverButton">استعادة الحساب</button>
+        </div>
+
+        <!-- قسم المحفظة -->
+        <div class="wallet-section">
+            <h2>محفظتك</h2>
+            <p id="walletAddressDisplay"></p>
+            <p id="balance"></p>
+            <button id="mineButton">بدء التعدين</button>
+            <p id="miningTimer"></p>
+        </div>
+    </div>
+
+    <script>
+        // دالة لتوليد كلمات استرداد جديدة
+        function generateRecoveryWords() {
+            const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
+            let recoveryPhrase = [];
+            for (let i = 0; i < 12; i++) {
+                recoveryPhrase.push(words[Math.floor(Math.random() * words.length)]);
+            }
+            return recoveryPhrase.join(" ");
+        }
+
+        // دالة لتوليد عنوان محفظة يتوافق مع شبكة TON
+        function generateWalletAddress() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let address = "EQ";  // بداية العنوان تكون "EQ" لشبكة TON
+            for (let i = 0; i < 48; i++) {  // العنوان يتكون من 48 حرفًا بعد "EQ"
+                address += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return address;
+        }
+
+        // دالة للتحقق من تنسيق البريد الإلكتروني
+        function isValidEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        }
+
+        // دالة للتأكد من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+        function isEmailOrUsernameTaken(email, username) {
+            const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+            // التحقق من وجود البريد الإلكتروني أو اسم المستخدم في قائمة المستخدمين
+            return existingUsers.some(user => user.email === email || user.username === username);
+        }
+
+        // دالة لتوليد رمز استرداد عشوائي
+        function generateRecoveryCode() {
+            const code = Math.floor(100000 + Math.random() * 900000); // رمز مكون من 6 أرقام
+            return code;
+        }
+
+        // دالة لتخزين رمز الاسترداد مع وقت انتهاء الصلاحية
+        function storeRecoveryCode(email, code) {
+            const expiryTime = Date.now() + 5 * 60 * 1000;  // 5 دقائق من الآن
+            const recoveryData = { code, expiryTime };
+            localStorage.setItem(`recoveryCode_${email}`, JSON.stringify(recoveryData));
+        }
+
+        // دالة للتحقق من صلاحية رمز الاسترداد
+        function isRecoveryCodeValid(email, code) {
+            const recoveryData = JSON.parse(localStorage.getItem(`recoveryCode_${email}`));
+            if (recoveryData) {
+                const currentTime = Date.now();
+                if (currentTime <= recoveryData.expiryTime && recoveryData.code === code) {
+                    return true;  // الرمز صالح
+                } else {
+                    return false;  // الرمز منتهي الصلاحية أو خاطئ
+                }
+            }
+            return false;  // رمز الاسترداد غير موجود
+        }
+
+        // دالة لإرسال رمز الاسترداد إلى البريد الإلكتروني
+        function sendRecoveryEmail(email) {
+            const code = generateRecoveryCode();
+            storeRecoveryCode(email, code);
+            alert(`A recovery code has been sent to your email. Your code is: ${code}`);
+        }
+
+        // دالة لاستعادة الحساب باستخدام البريد الإلكتروني
+        document.getElementById("recoverButton").onclick = function() {
+            const email = prompt("Enter your email to recover your account:");
+
+            if (email && isValidEmail(email)) {
+                const code = prompt("Enter the recovery code sent to your email:");
+
+                if (isRecoveryCodeValid(email, code)) {
+                    alert("Your account has been successfully recovered!");
+                    // يمكنك إضافة أي إجراءات إضافية لاسترجاع الحساب هنا، مثل السماح للمستخدم بتغيير كلمة المرور.
+                } else {
+                    alert("Invalid or expired recovery code.");
+                }
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        };
+
+        // دالة للتسجيل
+        document.getElementById("registerButton").onclick = function() {
+            const email = prompt("Enter your email:");
+            const username = prompt("Enter your username:");
+            const password = prompt("Enter your password:");
+            const confirmPassword = prompt("Re-enter your password:");
+
+            if (email && username && password && confirmPassword) {
+                // التحقق من أن البريد الإلكتروني بتنسيق صحيح
+                if (!isValidEmail(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+
+                // التحقق من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+                if (isEmailOrUsernameTaken(email, username)) {
+                    alert("Email or Username is already taken. Please try another one.");
+                } else {
+                    if (password === confirmPassword) {
+                        // تخزين بيانات المستخدم الجديدة
+                        const newUser = {
+                            email: email,
+                            username: username,
+                            password: password,
+                            walletAddress: generateWalletAddress(),
+                            recoveryWords: generateRecoveryWords(),
+                            balance: 0,
+                        };
+
+                        const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+                        existingUsers.push(newUser);
+                        localStorage.setItem("users", JSON.stringify(existingUsers));
+
+                        alert("Registration successful!");
+                        showWallet(newUser);
+                    } else {
+                        alert("Passwords do not match. Please try again.");
+                    }
+                }
+            } else {
+                alert("Please fill in all fields.");
+            }
+        };
+
+        // دالة لتسجيل الدخول
+        document.getElementById("loginButton").onclick = function() {
+            const username = prompt("Enter your username:");
+            const password = prompt("Enter your password:");
+
+            // البحث عن المستخدم في قائمة المستخدمين المخزنة
+            const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+            const user = existingUsers.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                alert("Login successful!");
+                localStorage.setItem("loggedIn", true); // تخزين حالة تسجيل الدخول
+                localStorage.setItem("loggedInUser", JSON.stringify(user)); // تخزين بيانات المستخدم المسجل
+                showWallet(user);
+            } else {
+                alert("Incorrect username or password.");
+            }
+        };
+
+        // دالة لإظهار المحفظ[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/mustafashokry555/Center/tree/36a0f7cfd5d74c1238616eb5f3dcabcb6befe6a8/secretary%2Flogin-form.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Abosaad20/my_test/tree/e0278eea8932e789740b8932aaa781559b7bde4a/new%2Fdash.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "2")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Nabile01/First-project/tree/800c13e90b105f2a77022da5bedc9bbdfe326f60/P.%20GITES%2Flogin.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "3")
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>نظام إدارة الحساب</title>
+    <style>
+        /* إعدادات عامة */
+        body {
+            font-family: 'Cairo', sans-serif; /* خط عربي مميز */
+            background-color: #f4f4f4; /* لون خلفية مريح */
+            color: #333; /* لون النص */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* تنسيق للواجهة */
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* عنوان */
+        h1, h2, h3 {
+            color: #007b5e; /* لون أخضر متناسق */
+            text-align: center;
+        }
+
+        /* أزرار */
+        button {
+            background-color: #007b5e; /* لون أخضر للأزرار */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* أزرار عند المرور */
+        button:hover {
+            background-color: #005a40; /* لون أغمق عند التمرير */
+        }
+
+        /* حقول الإدخال */
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* تنسيق خاص للأقسام */
+        .auth-section, .wallet-section {
+            display: none;
+            padding: 20px;
+        }
+
+        .wallet-section {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>مرحبا بك في نظام إدارة الحساب</h1>
+
+        <!-- قسم المصادقة -->
+        <div class="auth-section">
+            <button id="registerButton">تسجيل</button>
+            <button id="loginButton">تسجيل الدخول</button>
+            <button id="recoverButton">استعادة الحساب</button>
+        </div>
+
+        <!-- قسم المحفظة -->
+        <div class="wallet-section">
+            <h2>محفظتك</h2>
+            <p id="walletAddressDisplay"></p>
+            <p id="balance"></p>
+            <button id="mineButton">بدء التعدين</button>
+            <p id="miningTimer"></p>
+        </div>
+    </div>
+
+    <script>
+        // دالة لتوليد كلمات استرداد جديدة
+        function generateRecoveryWords() {
+            const words = ["apple", "orange", "banana", "grape", "mango", "lemon", "berry", "kiwi", "peach", "plum", "fig", "melon"];
+            let recoveryPhrase = [];
+            for (let i = 0; i < 12; i++) {
+                recoveryPhrase.push(words[Math.floor(Math.random() * words.length)]);
+            }
+            return recoveryPhrase.join(" ");
+        }
+
+        // دالة لتوليد عنوان محفظة يتوافق مع شبكة TON
+        function generateWalletAddress() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let address = "EQ";  // بداية العنوان تكون "EQ" لشبكة TON
+            for (let i = 0; i < 48; i++) {  // العنوان يتكون من 48 حرفًا بعد "EQ"
+                address += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return address;
+        }
+
+        // دالة للتحقق من تنسيق البريد الإلكتروني
+        function isValidEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        }
+
+        // دالة للتأكد من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+        function isEmailOrUsernameTaken(email, username) {
+            const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+            // التحقق من وجود البريد الإلكتروني أو اسم المستخدم في قائمة المستخدمين
+            return existingUsers.some(user => user.email === email || user.username === username);
+        }
+
+        // دالة لتوليد رمز استرداد عشوائي
+        function generateRecoveryCode() {
+            const code = Math.floor(100000 + Math.random() * 900000); // رمز مكون من 6 أرقام
+            return code;
+        }
+
+        // دالة لتخزين رمز الاسترداد مع وقت انتهاء الصلاحية
+        function storeRecoveryCode(email, code) {
+            const expiryTime = Date.now() + 5 * 60 * 1000;  // 5 دقائق من الآن
+            const recoveryData = { code, expiryTime };
+            localStorage.setItem(`recoveryCode_${email}`, JSON.stringify(recoveryData));
+        }
+
+        // دالة للتحقق من صلاحية رمز الاسترداد
+        function isRecoveryCodeValid(email, code) {
+            const recoveryData = JSON.parse(localStorage.getItem(`recoveryCode_${email}`));
+            if (recoveryData) {
+                const currentTime = Date.now();
+                if (currentTime <= recoveryData.expiryTime && recoveryData.code === code) {
+                    return true;  // الرمز صالح
+                } else {
+                    return false;  // الرمز منتهي الصلاحية أو خاطئ
+                }
+            }
+            return false;  // رمز الاسترداد غير موجود
+        }
+
+        // دالة لإرسال رمز الاسترداد إلى البريد الإلكتروني
+        function sendRecoveryEmail(email) {
+            const code = generateRecoveryCode();
+            storeRecoveryCode(email, code);
+            alert(`A recovery code has been sent to your email. Your code is: ${code}`);
+        }
+
+        // دالة لاستعادة الحساب باستخدام البريد الإلكتروني
+        document.getElementById("recoverButton").onclick = function() {
+            const email = prompt("Enter your email to recover your account:");
+
+            if (email && isValidEmail(email)) {
+                const code = prompt("Enter the recovery code sent to your email:");
+
+                if (isRecoveryCodeValid(email, code)) {
+                    alert("Your account has been successfully recovered!");
+                    // يمكنك إضافة أي إجراءات إضافية لاسترجاع الحساب هنا، مثل السماح للمستخدم بتغيير كلمة المرور.
+                } else {
+                    alert("Invalid or expired recovery code.");
+                }
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        };
+
+        // دالة للتسجيل
+        document.getElementById("registerButton").onclick = function() {
+            const email = prompt("Enter your email:");
+            const username = prompt("Enter your username:");
+            const password = prompt("Enter your password:");
+            const confirmPassword = prompt("Re-enter your password:");
+
+            if (email && username && password && confirmPassword) {
+                // التحقق من أن البريد الإلكتروني بتنسيق صحيح
+                if (!isValidEmail(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+
+                // التحقق من أن البريد الإلكتروني واسم المستخدم غير موجودين مسبقًا
+                if (isEmailOrUsernameTaken(email, username)) {
+                    alert("Email or Username is already taken. Please try another one.");
+                } else {
+                    if (password === confirmPassword) {
+                        // تخزين بيانات المستخدم الجديدة
+                        const newUser = {
+                            email: email,
+                            username: username,
+                            password: password,
+                            walletAddress: generateWalletAddress(),
+                            recoveryWords: generateRecoveryWords(),
+                            balance: 0,
+                        };
+
+                        const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+                        existingUsers.push(newUser);
+                        localStorage.setItem("users", JSON.stringify(existingUsers));
+
+                        alert("Registration successful!");
+                        showWallet(newUser);
+                    } else {
+                        alert("Passwords do not match. Please try again.");
+                    }
+                }
+            } else {
+                alert("Please fill in all fields.");
+            }
+        };
+
+        // دالة لتسجيل الدخول
+        document.getElementById("loginButton").onclick = function() {
+            const username = prompt("Enter your username:");
+            const password = prompt("Enter your password:");
+
+            // البحث عن المستخدم في قائمة المستخدمين المخزنة
+            const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+            const user = existingUsers.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                alert("Login successful!");
+                localStorage.setItem("loggedIn", true); // تخزين حالة تسجيل الدخول
+                localStorage.setItem("loggedInUser", JSON.stringify(user)); // تخزين بيانات المستخدم المسجل
+                showWallet(user);
+            } else {
+                alert("Incorrect username or password.");
+            }
+        };
+
+        // دالة لإظهار المحفظ[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/mustafashokry555/Center/tree/36a0f7cfd5d74c1238616eb5f3dcabcb6befe6a8/secretary%2Flogin-form.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Abosaad20/my_test/tree/e0278eea8932e789740b8932aaa781559b7bde4a/new%2Fdash.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "2")[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/Nabile01/First-project/tree/800c13e90b105f2a77022da5bedc9bbdfe326f60/P.%20GITES%2Flogin.php?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "3")
