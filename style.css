@@ -44,16 +44,20 @@ button {
     height: 100px;
     font-size: 14px; /* تصغير حجم الخط */
     transition: all 0.3s ease;
-    background-position: center;
     text-align: center;
     line-height: 50px;
     font-weight: bold;
+    background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة */
+    background-size: cover; /* لتغطية الزر بالكامل */
+    background-position: center;
+    filter: opacity(0.5); /* شفافية الصورة */
 
     /* تحويل الأزرار إلى شكل النجمة الثمانية */
     clip-path: polygon(
-        50% 0%, 61% 35%, 98% 35%, 68% 57%, 
-        79% 91%, 50% 70%, 21% 91%, 32% 57%, 
-        2% 35%, 39% 35%
+        50% 0%, 61% 18%, 80% 20%, 70% 40%, 
+        100% 50%, 70% 60%, 80% 80%, 61% 82%, 
+        50% 100%, 39% 82%, 20% 80%, 30% 60%, 
+        0% 50%, 30% 40%, 20% 20%, 39% 18%
     );
 }
 
