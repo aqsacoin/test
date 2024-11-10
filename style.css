@@ -1,4 +1,4 @@
-/* CSS لتحسين التصميم والألوان */
+/* CSS لتحسين التصميم و الألوان */
 body {
     font-family: Arial, sans-serif;
     background: url('https://i.imgur.com/02hGoe4.jpeg') no-repeat center center fixed;
@@ -34,55 +34,46 @@ h1 {
 }
 
 button {
-    background: rgba(255, 87, 51, 0.3);
-    color: #000000; /* اللون الأسود للنص */
-    padding: 15px;
+    background: url('https://i.imgur.com/02hGoe4.jpeg') center/50% no-repeat; /* إضافة صورة قبة الصخرة */
+    color: #000; /* اللون الأسود للنص */
+    padding: 30px;
     margin: 10px;
-    border: 2px solid #ff5733;
+    border: 3px solid #ff5733;
     cursor: pointer;
-    width: 100px;
-    height: 100px;
-    font-size: 14px; /* تصغير حجم الخط */
+    width: 120px;
+    height: 120px;
+    font-size: 18px;
+    font-weight: bold;
     transition: all 0.3s ease;
     text-align: center;
-    line-height: 50px;
-    font-weight: bold;
-    background-image: url('https://i.imgur.com/02hGoe4.jpeg'); /* صورة قبة الصخرة */
-    background-size: cover; /* لتغطية الزر بالكامل */
-    background-position: center;
-    filter: opacity(0.5); /* شفافية الصورة */
+    line-height: normal;
+    position: relative;
 
-    /* تحويل الأزرار إلى شكل النجمة الثمانية */
-    clip-path: polygon(
-        50% 0%, 61% 18%, 80% 20%, 70% 40%, 
-        100% 50%, 70% 60%, 80% 80%, 61% 82%, 
-        50% 100%, 39% 82%, 20% 80%, 30% 60%, 
-        0% 50%, 30% 40%, 20% 20%, 39% 18%
-    );
+    /* تطبيق شكل النجمة الثمانية */
+    clip-path: polygon(50% 0%, 85% 15%, 100% 50%, 85% 85%, 50% 100%, 15% 85%, 0% 50%, 15% 15%);
 }
 
 button:hover {
-    background-color: rgba(255, 87, 51, 0.6);
-    border-color: #ff8d72;
+    background-size: 60%;
     transform: scale(1.1);
 }
 
 button:active {
-    background-color: rgba(255, 87, 51, 0.8);
+    background-size: 55%;
     transform: scale(1);
 }
 
-/* تحسين محاذاة النص داخل الأزرار */
 button span {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #000000; /* اللون الأسود للنص */
-    font-size: 14px;
+    color: #000; /* النص باللون الأسود */
+    font-size: 18px;
     font-weight: bold;
 }
 
+/* تحسين الشكل العام للمحتوى */
 .container h1 {
     font-size: 24px;
     font-weight: bold;
